@@ -1,0 +1,103 @@
+SeaVolt rig - printed-only construction kit
+===========================================
+
+All joints are radial press-fits, no glue, no bolts, no inserts:
+  plug 6.00 mm  ->  snaps past a 5.85 mm lip  ->  seats in a 6.15 mm slot.
+
+FILAMENT
+  PETG strongly recommended (press-fits; PLA is brittle and can crack on
+  insertion). If you must use PLA, loosen the fit first (see TUNING).
+
+PRINT SETTINGS
+  0.2 mm layers, 3 perimeters, 15-20% infill is plenty for the frame.
+  Use an organic/gyroid infill in the slicer - it saves material over grid
+  while staying strong. The legs (tapered octagonal "bone") and the shelf
+  (spoked deck) are already lightened; keep the perimeters around the snap
+  lips and plug sockets solid (3 perimeters or 100% for the first 2 mm of
+  every joint region). One part per plate. All parts print flat, no supports.
+
+PART LIST (print once per listed quantity; ~340 g PETG total)
+  kit_hub         x3   disc flat, slots facing up
+  kit_strut_128   x3   triangle edges, laid flat on a side
+  kit_leg         x3   X-pattern legs, laid flat on a side (bone profile)
+  kit_foot        x3   flat
+  kit_pump_clamp  x1   tube upright (split + stub clear of the plate)
+  kit_shelf       x1   flat, snap keyways on the underside + raised snap
+                       collar on top (spoked deck)
+
+  Optional containers (print as-is, watertight):
+  chamber_stand   x1   flat, no supports
+  chamber_body    x1   (needs supports or a small raft under the side inlet
+                       boss and drain boss if printing in PLA)
+  al_cartridge_basket   x1
+  al_cartridge_lid      x1
+
+TUNING (if the snap is wrong, adjust BEFORE printing a full set)
+  Open seavolt_prototype\seavolt_rig.py and change LIP near the top.
+    * joints too loose / fall apart:  lower LIP by 0.05 (tighter snap)
+    * joints won't click together:    raise LIP by 0.05
+  Shelf-to-bar snap is tuned separately with SHELF_LIP (default 9.90 mm,
+  i.e. 0.10 mm interference with the 10 mm bar - gentler than the plugs
+  because three mouths have to seat at once).
+    * shelf pops off / too easy:   lower SHELF_LIP by 0.05
+    * shelf won't seat over bars:  raise SHELF_LIP by 0.05
+  The stand-to-shelf collar snap (0.2 mm interference, skirt pockets) and the
+  chamber-to-stand ring snap (0.15 mm interference, waist groove) are fixed
+  geometry - if they fight, tune them in the code: the collar bumps in
+  seavolt_rig.py (shelf(), "Raised snap collar") and the ring bumps + groove
+  in reactor_chamber.py (build_stand / build_chamber "Snap waist").
+  Re-run the module(s) to re-export the STLs.
+
+ASSEMBLY (3-legged triangular frame, bench-top)
+  1. Take one hub. Press a strut plug into a slot until it clicks. The plug
+     goes in straight (radially) - push the BAR, not the plug tip.
+  2. Add the next hub onto the strut's free end, then complete the triangle
+     with the remaining struts. You now have a rigid triangle of 3 hubs +
+     3 bars.
+  3. Push an X leg up through each hub's centre socket from underneath until
+     it clicks. Each leg leans outward past its neighbour, so the feet land
+     on the 60-deg-rotated foot triangle (1.2x the hub radius) and the legs
+     brace one another. Press a foot onto the bottom of each leg.
+  4. Plug the pump clamp's stub into one hub's outward slot (the third slot,
+     the one that points away from the triangle). Open the split collar and
+     slide the pump in; the collar grips around the pump body.
+  5. Press the shelf onto the three bars so its snap keyways click past the
+     bar tops (one click per bar). To take it back off, push up on two bars
+     at once - the mouth releases with a click.
+  6. Press the chamber stand (chamber_stand.stl) down onto the shelf until
+     its skirt clicks over the collar (four bumps, one firm push - the skirt
+     flexes out 0.2 mm and the bumps seat in the skirt pockets). Lift by
+     pulling straight up on the rim.
+  7. Seat the chamber body in the stand: drop it in and press down until the
+     ring's three bumps click into the waist groove (the body cams past them
+     at 0.15 mm). It pulls straight back out. Fill the cartridge with the
+     aluminum charge, drop it in the chamber, snap the cartridge lid on.
+
+REAL-WORLD STRUCTURAL TEST
+  * Joint wiggle: with the rig loaded (chamber + water, ~2 kg), grab a bar
+    and twist. Expect no rotation in the plane of the triangle; some flex
+    out of plane is normal.
+  * Leg splay: push the rig sideways at the top. The X-pattern legs (each
+    leaning outward to its own foot) should hold the frame square.
+  * Pull-out: lift the loaded shelf by one hub. The snap lips should hold
+    every joint.
+  * Pump grip: the collar should keep the pump from sliding when the rig is
+    nudged. If it spins, shim with tape or tighten the grip in the code
+    (grip=0.2 default in pump_clamp()).
+
+FAULTS AND FIXES
+  - A joint clicks but slides out easily -> tighten LIP by 0.05.
+  - Struts won't seat fully -> clean flash off the slot, or loosen LIP.
+  - Hub won't take a leg -> leg plug is fine; press harder past the lip, it
+    seats with the bar face flush against the hub underside.
+  - Shelf snaps on one bar but not the other two -> seat one bar at a time,
+    rocking the shelf; if it still fights, loosen SHELF_LIP by 0.05.
+  - Stand won't click onto the shelf -> align it so the bumps line up with
+    the skirt pockets (any 90 deg rotation works); a firm one-handed push
+    seats it. If it still binds, shave 0.05 mm off the collar bump outer
+    radius in seavolt_rig.py.
+  - Chamber won't click into the stand -> it is a straight push; if the ring
+    binds, reduce the ring bump interference (0.15 -> 0.10) in
+    reactor_chamber.py build_stand.
+  - Pump collar cracked on insertion -> print in PETG, and open the split
+    gap by hand a little before sliding the pump in.

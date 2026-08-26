@@ -1,5 +1,16 @@
 SeaVolt rig - printed-only construction kit
 ===========================================
+NOTE: The parametric generator scripts referenced below were recovered/rebuilt
+on 2026-08-25:
+  * seavolt_rig.py      -> regenerates the 6 frame parts (hub, strut, leg, foot,
+                          pump_clamp, shelf). Tune LIP / SHELF_LIP / GRIP, then
+                          re-run to re-export the STLs.
+  * reactor_chamber.py  -> regenerates the 5 reaction-core parts (chamber_stand,
+                          chamber_body, chamber_lid, al_cartridge_basket,
+                          al_cartridge_lid) with functional seawater/H2/drain
+                          ports, perforated basket, heat fins, and an O-ring lid.
+Run:  python seavolt_rig.py   /   python reactor_chamber.py
+Both scripts self-verify (bounding box + single-solid check) on each run.
 
 All joints are radial press-fits, no glue, no bolts, no inserts:
   plug 6.00 mm  ->  snaps past a 5.85 mm lip  ->  seats in a 6.15 mm slot.
@@ -29,7 +40,9 @@ PART LIST (print once per listed quantity; ~340 g PETG total)
   chamber_stand   x1   flat, no supports
   chamber_body    x1   (needs supports or a small raft under the side inlet
                        boss and drain boss if printing in PLA)
-  al_cartridge_basket   x1
+  chamber_lid     x1   O-ring groove on the underside; seals the chamber for
+                      pressure-rated H2 collection
+  al_cartridge_basket   x1   perforated walls + base; central vent tube
   al_cartridge_lid      x1
 
 TUNING (if the snap is wrong, adjust BEFORE printing a full set)

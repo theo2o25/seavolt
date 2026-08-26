@@ -49,8 +49,8 @@ No part exceeds 220 mm. All print flat, no supports (except the chamber side bos
 ## 6. Recommended actions (low effort, high value)
 1. ~~`chamber_body.stl`~~ — **verified fine** (boss intersects wall, unions on print). No action.
 2. ✅ **`al_cartridge_lid.stl` — DONE.** Removed the 3 stray 12-tri rim bits (36 tris); 10,080-tri lid kept. Original saved as `al_cartridge_lid.stl.bak`.
-3. **Recover/commit `seavolt_rig.py` and `reactor_chamber.py`** — without them the documented tuning is impossible. If they're lost, I can reconstruct minimal generators from the BUILD_SHEET specs.
-4. **Add `chamber_lid` to the part list** (or document its role).
+3. ✅ **RECOVERED (2026-08-25): `seavolt_rig.py` and `reactor_chamber.py`** were rebuilt from the BUILD_SHEET specs and now regenerate all 11 STLs parametrically, with `reactor_chamber.py` adding functional seawater/H2/drain ports, a perforated basket, heat fins, and an O-ring lid.
+4. ✅ **`chamber_lid` added to the part list** in BUILD_SHEET.txt.
 5. **Test-print one joint first** (hub + strut) to validate the snap before a full set — the doc already recommends this; it's the right call.
 
 *Deep dive conducted by parsing every STL (dimensions + connected-component + triangle-intersection analysis). Only `al_cartridge_lid.stl` was modified (stray bits removed); `chamber_body.stl` was checked and left untouched.*

@@ -3,3 +3,14 @@
 Thumbs.db
 *.tmp
 *.bak
+
+# Patent filings / PII — never commit these to the repo
+patent-files/
+*Molden*
+ADS*
+N417*
+*Provisional*
+*SB_15A*
+*PYMT*
+*.docx
+
